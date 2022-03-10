@@ -68,12 +68,10 @@ public class Game {
         while(true){
             do {
                 cardNumber= KeyboardInput.readInt("Which card do you want to play?")-1;
-                //cardNumber = ZKlavesnice.readInt("Which card do you want to play?")-1;
             } while (cardNumber<0||cardNumber>2);
 
             if( players[currentPlayer].getCard(cardNumber).getNeedPosition()){
                 do {
-                    //positionNumber = ZKlavesnice.readInt("On which position?");
                     positionNumber = KeyboardInput.readInt("On which position?");
                 } while (positionNumber < 1 || positionNumber > 6);
                 players[currentPlayer].getCard(cardNumber).setUsedOnPosition(positionNumber);
