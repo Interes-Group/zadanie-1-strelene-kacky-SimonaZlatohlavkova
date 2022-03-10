@@ -1,11 +1,11 @@
 package sk.stuba.fei.uim.oop.game;
-import sk.stuba.fei.uim.oop.lake.Lake;
+
+import sk.stuba.fei.uim.oop.deckOfCards.*;
+import sk.stuba.fei.uim.oop.deckOfCards.actionCards.*;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tile.*;
-import sk.stuba.fei.uim.oop.cards.*;
+import sk.stuba.fei.uim.oop.utility.KeyboardInput;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
-
-import java.util.Collection;
 import java.util.List;
 import java.util.*;
 
@@ -13,39 +13,78 @@ public class Game {
     private Player[] players;
     private int currentPlayer;
     private DeckOfActionCards actionCards;
-    private  Lake lake;
+    private DeckOfLake lake;
+
     public Game() {
+        this.currentPlayer=0;
         int numberPlayers;
         do {
-            numberPlayers = ZKlavesnice.readInt("Input number of players (2-6)");
+            numberPlayers = KeyboardInput.readInt("Input number of players (2-6)");
         }while(numberPlayers>6||numberPlayers<2);
         this.players=new Player[numberPlayers];
         for (int i=0; i<numberPlayers; i++){
-            this.players[i]=new Player(ZKlavesnice.readString("Enter name of player number "+ (i+1)));
+            this.players[i]=new Player(KeyboardInput.readString("Enter name of player number "+ (i+1)));
         }
         new Duck(players[1]);
         initializeLake();
         initializeActionCards();
-        StartGame();
+        startGame();
     }
 
-    private void StartGame(){
+    private void startGame(){
         initializePlayersCards();
         while(getNumberOfActive()>1){
             printLake();
             printPlayersCards();
             if(!canPlaySomeCard()){
-               int index= ZKlavesnice.readInt("You can´t play any card. Witch card do you want to toss?");
-               players[currentPlayer].tossCard(actionCards,players[currentPlayer].getCard(index-1));
+                int index;
+                do {
+                    index = KeyboardInput.readInt("You can´t play any card. Witch card do you want to toss?");
+                }while(index>3 || index<1);
+                tossCard(index-1);
+                takeCard(currentPlayer);
             }
             else{
-                players[currentPlayer].playCard(lake,actionCards);
+                playCard();
+                takeCard(currentPlayer);
             }
-            players[currentPlayer].takeCard(actionCards);
+            currentPlayer++;
+            if(currentPlayer>=players.length){currentPlayer=0;}
         }
-
+        System.out.println("-------End of game--------");
+        System.out.println("Winner is: "+ getWinner().getName());
+    }
+    private void takeCard(int number){
+        players[number].takeCard(actionCards.drawCard());
+    }
+    public void tossCard(int position){
+        actionCards.tossCard(players[currentPlayer].getCard(position));
+        players[currentPlayer].tossCard(position);
     }
 
+    public void playCard(){
+        int cardNumber;
+        int positionNumber;
+        while(true){
+            do {
+                cardNumber= KeyboardInput.readInt("Which card do you want to play?")-1;
+                //cardNumber = ZKlavesnice.readInt("Which card do you want to play?")-1;
+            } while (cardNumber<0||cardNumber>2);
+
+            if( players[currentPlayer].getCard(cardNumber).getNeedPosition()){
+                do {
+                    //positionNumber = ZKlavesnice.readInt("On which position?");
+                    positionNumber = KeyboardInput.readInt("On which position?");
+                } while (positionNumber < 1 || positionNumber > 6);
+                players[currentPlayer].getCard(cardNumber).setUsedOnPosition(positionNumber);
+            }
+            updateLake(players[currentPlayer].getCard(cardNumber).activate(this.lake));
+            if(players[currentPlayer].getCard(cardNumber).getPlayed()){
+              break;
+            }
+        }
+        tossCard(cardNumber);
+    }
     private boolean canPlaySomeCard(){
         if(Objects.equals(players[currentPlayer].getCard(0).getName(), "Shoot") && lake.getAllAimed()==0){
             if(Objects.equals(players[currentPlayer].getCard(1).getName(), "Shoot")){
@@ -64,8 +103,6 @@ public class Game {
         return true;
     }
 
-
-
     private void initializeLake() {
         List<Tile> lakeCards=new ArrayList<Tile>();
         for (int i = 0; i < players.length; i++) {
@@ -77,9 +114,11 @@ public class Game {
             lakeCards.add(new Water());
         }
         Collections.shuffle(lakeCards);
-        lake=new Lake(lakeCards);
+        lake=new DeckOfLake(lakeCards);
     }
-
+    private void updateLake(DeckOfLake lake){
+        this.lake=lake;
+    }
     void initializeActionCards(){
     List <Cards> actionCardsDeck=List.of(
         new Aim("Aim",10,true),
@@ -92,15 +131,13 @@ public class Game {
     );
     actionCards=new DeckOfActionCards(actionCardsDeck);
     }
-
     private void initializePlayersCards(){
-        for (Player player : players) {
+        for (int i=0; i<players.length;i++) {
             for (int j = 0; j < 3; j++) {
-                player.takeCard(actionCards);
+                takeCard(i);
             }
         }
     }
-
 
     private int getNumberOfActive(){
         int active=0;
@@ -115,23 +152,31 @@ public class Game {
     }
 
     private void printLake(){
-
         for(int i=0; i<6; i++){
             if(lake.getTile(i).getOwner()==null){
-                System.out.println((i+1)+". "+ lake.getTile(i).getName()+ (!lake.getTile(i).getAimed() ? " -> Not aimed":" -> Aimed"));
+                System.out.println((i+1)+". "+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed"));
             }
             else{
-                System.out.println((i+1)+". "+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getTile(i).getAimed() ? " -> Not aimed":" -> Aimed"));
+                System.out.println((i+1)+". "+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed"));
             }
         }
     }
     private void printPlayersCards(){
         System.out.println("--------------------");
         System.out.println("PLAYER: "+ players[currentPlayer].getName());
+        System.out.println("PLAYER LIVES: "+ players[currentPlayer].getLives());
         System.out.println("-----Your Cards-----");
         for(int i=0; i<3; i++){
             System.out.println((i+1)+". "+players[currentPlayer].getCard(i).getName());
         }
+    }
+    private Player getWinner(){
+        for(int i=0; i<this.players.length; i++){
+            if(this.players[i].isActive()){
+                return this.players[i];
+            }
+        }
+        return null;
     }
 
 
