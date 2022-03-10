@@ -2,6 +2,8 @@ package sk.stuba.fei.uim.oop.utility;
 
 import java.io.*;
 
+import java.io.*;
+
 public class ZKlavesnice {
 
     public static char readChar(String napis_pre_uzivatela) {
@@ -11,7 +13,6 @@ public class ZKlavesnice {
         try {
             System.out.println(napis_pre_uzivatela);
             c = (char) zklavesnice.read();
-            //System.out.println("Nacital som " + c);
         } catch (Exception e) {
             System.out.println("nepodarilo sa");
             c = readChar(napis_pre_uzivatela);
@@ -24,9 +25,9 @@ public class ZKlavesnice {
         String s = "";
 
         BufferedReader zklavesnice = new BufferedReader(new InputStreamReader(System.in));
-        try {	System.out.println(napis_pre_uzivatela);
+        try {
+            System.out.println(napis_pre_uzivatela);
             s = zklavesnice.readLine();
-            //System.out.println("Nacital som " + s);
         } catch (Exception e) {
             System.out.println("nepodarilo sa");
             s = readString(napis_pre_uzivatela);
@@ -40,9 +41,9 @@ public class ZKlavesnice {
         String s;
 
         BufferedReader zklavesnice = new BufferedReader(new InputStreamReader(System.in));
-        try {	System.out.println(napis_pre_uzivatela);
+        try {
+            System.out.println(napis_pre_uzivatela);
             s = zklavesnice.readLine();
-            //System.out.println("Nacital som " + s);
             n = Integer.parseInt(s);
         } catch (Exception e) {
             System.out.println("nepodarilo sa");
@@ -57,9 +58,9 @@ public class ZKlavesnice {
         String s;
 
         BufferedReader zklavesnice = new BufferedReader(new InputStreamReader(System.in));
-        try {	System.out.println(napis_pre_uzivatela);
+        try {
+            System.out.println(napis_pre_uzivatela);
             s = zklavesnice.readLine();
-            //System.out.println("Nacital som " + s);
             x = Double.parseDouble(s);
         } catch (Exception e) {
             System.out.println("nepodarilo sa");
