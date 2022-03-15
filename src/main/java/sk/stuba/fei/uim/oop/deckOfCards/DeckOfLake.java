@@ -9,7 +9,6 @@ import java.util.Random;
 public class DeckOfLake{
     private List<Tile> deckOfLake;
     private ArrayList<Boolean> aimedList;
-
     private Random random;
 
     public DeckOfLake(List<Tile> lakeCards){

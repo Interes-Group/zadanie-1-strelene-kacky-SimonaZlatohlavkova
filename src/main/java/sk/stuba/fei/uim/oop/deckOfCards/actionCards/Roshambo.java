@@ -20,7 +20,7 @@ public class Roshambo extends Cards {
         }
         Collections.shuffle(lakeTemp);
         for( int i=0; i<6; i++){
-            lake.getDeckOfLake().add(i,lakeTemp.get(i));
+            lake.getDeckOfLake().set(i,lakeTemp.get(i));
         }
         this.played=true;
         lakeTemp.clear();

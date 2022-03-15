@@ -5,9 +5,11 @@ import sk.stuba.fei.uim.oop.deckOfCards.actionCards.*;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tile.*;
 import sk.stuba.fei.uim.oop.utility.KeyboardInput;
-import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 import java.util.List;
 import java.util.*;
+
+import static sk.stuba.fei.uim.oop.game.Colors.*;
+
 
 public class Game {
     private Player[] players;
@@ -29,17 +31,26 @@ public class Game {
         initializeLake();
         initializeActionCards();
         startGame();
+
     }
 
     private void startGame(){
+
         initializePlayersCards();
         while(getNumberOfActive()>1){
+            if(!players[currentPlayer].isActive()){
+                actionCards=players[currentPlayer].tossAllCards(actionCards);
+                currentPlayer++;
+                if(currentPlayer>=players.length){currentPlayer=0;}
+                continue;
+            }
+            System.out.println(CYAN_BOLD+"---------------ROUND--------------"+ANSI_RESET);
             printLake();
             printPlayersCards();
             if(!canPlaySomeCard()){
                 int index;
                 do {
-                    index = KeyboardInput.readInt("You can´t play any card. Witch card do you want to toss?");
+                    index = KeyboardInput.readInt(ANSI_RED+"You can´t play any card. Witch card do you want to toss?"+ANSI_RESET);
                 }while(index>3 || index<1);
                 tossCard(index-1);
                 takeCard(currentPlayer);
@@ -52,8 +63,12 @@ public class Game {
             if(currentPlayer>=players.length){currentPlayer=0;}
         }
         System.out.println("-------End of game--------");
-        System.out.println("Winner is: "+ getWinner().getName());
+        System.out.println(ANSI_GREEN+"Winner is: "+ getWinner().getName()+ANSI_RESET);
     }
+
+
+
+
     private void takeCard(int number){
         players[number].takeCard(actionCards.drawCard());
     }
@@ -152,21 +167,22 @@ public class Game {
     private void printLake(){
         for(int i=0; i<6; i++){
             if(lake.getTile(i).getOwner()==null){
-                System.out.println((i+1)+". "+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed"));
+                System.out.println((i+1)+". "+ANSI_BLUE+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
             }
             else{
-                System.out.println((i+1)+". "+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed"));
+                System.out.println((i+1)+". "+ANSI_YELLOW+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
             }
         }
     }
     private void printPlayersCards(){
-        System.out.println("--------------------");
+        System.out.println("----------------------------------");
         System.out.println("PLAYER: "+ players[currentPlayer].getName());
         System.out.println("PLAYER LIVES: "+ players[currentPlayer].getLives());
-        System.out.println("-----Your Cards-----");
+        System.out.println("------------Your Cards------------");
         for(int i=0; i<3; i++){
             System.out.println((i+1)+". "+players[currentPlayer].getCard(i).getName());
         }
+
     }
     private Player getWinner(){
         for(int i=0; i<this.players.length; i++){

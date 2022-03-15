@@ -1,7 +1,5 @@
 package sk.stuba.fei.uim.oop.deckOfCards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfActionCards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfLake;
-import sk.stuba.fei.uim.oop.tile.Tile;
+
 
 public abstract class Cards{
     protected String name;
@@ -12,12 +10,14 @@ public abstract class Cards{
     protected boolean played;
 
     public Cards(String name, int amount,boolean needPosition){
+
         this.tossedAmount=0;
         this.amount=amount;
         this.name=name;
         this.needPosition=needPosition;
         this.played=false;
     }
+
     public boolean getNeedPosition(){
         return needPosition;
     }
