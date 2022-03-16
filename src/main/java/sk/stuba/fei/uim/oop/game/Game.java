@@ -44,7 +44,7 @@ public class Game {
                 if(currentPlayer>=players.length){currentPlayer=0;}
                 continue;
             }
-            System.out.println(CYAN_BOLD+"---------------ROUND--------------"+ANSI_RESET);
+            System.out.println(WHITE_BACKGROUND_BRIGHT+BLACK_BOLD+"---------------ROUND--------------"+ANSI_RESET);
             printLake();
             printPlayersCards();
             if(!canPlaySomeCard()){
@@ -62,7 +62,7 @@ public class Game {
             currentPlayer++;
             if(currentPlayer>=players.length){currentPlayer=0;}
         }
-        System.out.println("-------End of game--------");
+        System.out.println(WHITE_BACKGROUND_BRIGHT+BLACK_BOLD+"------------End of game-----------"+ANSI_RESET);
         System.out.println(ANSI_GREEN+"Winner is: "+ getWinner().getName()+ANSI_RESET);
     }
 
@@ -139,7 +139,7 @@ public class Game {
         new WildBill("Wild Bill",2,true),
         new TurboDuck("Turbo Duck",1,true),
         new DuckMarch("Duck March",6,false),
-        new Scatter("Roshambo",2,false),
+        new Scatter("Scatter",2,false),
         new DuckDance("Duck Dance",1,false)
     );
     actionCards=new DeckOfActionCards(actionCardsDeck);
@@ -167,10 +167,10 @@ public class Game {
     private void printLake(){
         for(int i=0; i<6; i++){
             if(lake.getTile(i).getOwner()==null){
-                System.out.println((i+1)+". "+ANSI_BLUE+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
+                System.out.println((i+1)+". "+BLUE_BRIGHT+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
             }
             else{
-                System.out.println((i+1)+". "+ANSI_YELLOW+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
+                System.out.println((i+1)+". "+YELLOW_BRIGHT+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
             }
         }
     }

@@ -6,8 +6,7 @@ import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.Objects;
 
-import static sk.stuba.fei.uim.oop.game.Colors.ANSI_CYAN;
-import static sk.stuba.fei.uim.oop.game.Colors.ANSI_RESET;
+import static sk.stuba.fei.uim.oop.game.Colors.*;
 
 public class WildBill extends Cards {
     public WildBill(String name,int amount,boolean needPosition){
@@ -22,7 +21,7 @@ public class WildBill extends Cards {
             attackedPlayer.decrementLives();
             if(attackedPlayer.getLives()==0){
                 attackedPlayer.setActive(false);
-                System.out.println(ANSI_CYAN+"----------------------------------");
+                System.out.println(RED_BOLD+"----------------------------------");
                 System.out.println("Player "+attackedPlayer.getName()+" was eliminated");
                 System.out.println("----------------------------------"+ ANSI_RESET);
             }

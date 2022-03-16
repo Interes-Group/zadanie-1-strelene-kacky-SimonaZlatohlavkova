@@ -27,7 +27,7 @@ public class Shoot extends Cards {
                     attackedPlayer.decrementLives();
                     if(attackedPlayer.getLives()==0){
                         attackedPlayer.setActive(false);
-                        System.out.println(ANSI_CYAN+"----------------------------------");
+                        System.out.println(RED_BOLD+"----------------------------------");
                         System.out.println("Player "+attackedPlayer.getName()+" was eliminated");
                         System.out.println("----------------------------------"+ ANSI_RESET);
                     }
