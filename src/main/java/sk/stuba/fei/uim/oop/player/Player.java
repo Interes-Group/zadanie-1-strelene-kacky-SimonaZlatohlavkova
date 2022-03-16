@@ -2,10 +2,8 @@ package sk.stuba.fei.uim.oop.player;
 
 
 
-import sk.stuba.fei.uim.oop.deckOfCards.Cards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfActionCards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfLake;
-import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
+import sk.stuba.fei.uim.oop.decks.Cards;
+import sk.stuba.fei.uim.oop.decks.DeckOfActionCards;
 
 import java.util.ArrayList;
 import java.util.List;

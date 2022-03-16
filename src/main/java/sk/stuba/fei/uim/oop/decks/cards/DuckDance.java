@@ -1,7 +1,7 @@
-package sk.stuba.fei.uim.oop.deckOfCards.actionCards;
+package sk.stuba.fei.uim.oop.decks.cards;
 
-import sk.stuba.fei.uim.oop.deckOfCards.Cards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfLake;
+import sk.stuba.fei.uim.oop.decks.Cards;
+import sk.stuba.fei.uim.oop.decks.DeckOfLake;
 
 import java.util.Collections;
 

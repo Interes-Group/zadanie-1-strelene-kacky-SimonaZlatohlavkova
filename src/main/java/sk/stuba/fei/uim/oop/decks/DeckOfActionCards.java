@@ -1,6 +1,4 @@
-package sk.stuba.fei.uim.oop.deckOfCards;
-
-import sk.stuba.fei.uim.oop.deckOfCards.Cards;
+package sk.stuba.fei.uim.oop.decks;
 
 import java.util.ArrayList;
 import java.util.List;

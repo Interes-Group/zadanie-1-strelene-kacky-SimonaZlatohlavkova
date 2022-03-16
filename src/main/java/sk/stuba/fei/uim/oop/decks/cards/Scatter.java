@@ -1,15 +1,15 @@
-package sk.stuba.fei.uim.oop.deckOfCards.actionCards;
+package sk.stuba.fei.uim.oop.decks.cards;
 
-import sk.stuba.fei.uim.oop.deckOfCards.Cards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfLake;
+import sk.stuba.fei.uim.oop.decks.Cards;
+import sk.stuba.fei.uim.oop.decks.DeckOfLake;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Roshambo extends Cards {
-    public Roshambo(String name, int amount,boolean needPosition){
+public class Scatter extends Cards {
+    public Scatter(String name, int amount, boolean needPosition){
         super(name, amount,needPosition);
     }
     @Override

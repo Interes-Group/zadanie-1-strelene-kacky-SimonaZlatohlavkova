@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.deckOfCards;
+package sk.stuba.fei.uim.oop.decks;
 
 
 public abstract class Cards{

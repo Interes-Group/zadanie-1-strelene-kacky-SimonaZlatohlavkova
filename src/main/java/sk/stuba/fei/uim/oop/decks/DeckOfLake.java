@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.deckOfCards;
+package sk.stuba.fei.uim.oop.decks;
 
 import sk.stuba.fei.uim.oop.tile.Tile;
 import java.util.ArrayList;

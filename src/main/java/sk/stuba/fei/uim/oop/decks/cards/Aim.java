@@ -1,10 +1,6 @@
-package sk.stuba.fei.uim.oop.deckOfCards.actionCards;
-import sk.stuba.fei.uim.oop.deckOfCards.Cards;
-import sk.stuba.fei.uim.oop.deckOfCards.DeckOfLake;
-import sk.stuba.fei.uim.oop.tile.Tile;
-
-import java.util.ArrayList;
-import java.util.List;
+package sk.stuba.fei.uim.oop.decks.cards;
+import sk.stuba.fei.uim.oop.decks.Cards;
+import sk.stuba.fei.uim.oop.decks.DeckOfLake;
 
 import static sk.stuba.fei.uim.oop.game.Colors.ANSI_RED;
 import static sk.stuba.fei.uim.oop.game.Colors.ANSI_RESET;

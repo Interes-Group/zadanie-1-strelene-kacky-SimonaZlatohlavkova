@@ -1,7 +1,7 @@
 package sk.stuba.fei.uim.oop.game;
 
-import sk.stuba.fei.uim.oop.deckOfCards.*;
-import sk.stuba.fei.uim.oop.deckOfCards.actionCards.*;
+import sk.stuba.fei.uim.oop.decks.*;
+import sk.stuba.fei.uim.oop.decks.cards.*;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tile.*;
 import sk.stuba.fei.uim.oop.utility.KeyboardInput;
@@ -139,7 +139,7 @@ public class Game {
         new WildBill("Wild Bill",2,true),
         new TurboDuck("Turbo Duck",1,true),
         new DuckMarch("Duck March",6,false),
-        new Roshambo("Roshambo",2,false),
+        new Scatter("Roshambo",2,false),
         new DuckDance("Duck Dance",1,false)
     );
     actionCards=new DeckOfActionCards(actionCardsDeck);
