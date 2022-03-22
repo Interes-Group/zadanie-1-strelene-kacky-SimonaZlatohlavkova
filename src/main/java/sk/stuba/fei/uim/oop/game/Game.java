@@ -31,7 +31,6 @@ public class Game {
         initializeLake();
         initializeActionCards();
         startGame();
-
     }
 
     private void startGame(){
@@ -136,16 +135,16 @@ public class Game {
         this.lake=lake;
     }
     void initializeActionCards(){
-    List <Cards> actionCardsDeck=List.of(
-        new Aim("Aim",10,true),
-        new Shoot("Shoot",12,true),
-        new WildBill("Wild Bill",2,true),
-        new TurboDuck("Turbo Duck",1,true),
-        new DuckMarch("Duck March",6,false),
-        new Scatter("Scatter",2,false),
-        new DuckDance("Duck Dance",1,false)
-    );
-    actionCards=new DeckOfActionCards(actionCardsDeck);
+        List <Cards> actionCardsDeck=List.of(
+            new Aim("Aim",10,true),
+            new Shoot("Shoot",12,true),
+            new WildBill("Wild Bill",2,true),
+            new TurboDuck("Turbo Duck",1,true),
+            new DuckMarch("Duck March",6,false),
+            new Scatter("Scatter",2,false),
+            new DuckDance("Duck Dance",1,false)
+        );
+        actionCards=new DeckOfActionCards(actionCardsDeck);
     }
     private void initializePlayersCards(){
         for (int i=0; i<players.length;i++) {
@@ -154,7 +153,6 @@ public class Game {
             }
         }
     }
-
     private int getNumberOfActive(){
         int active=0;
         int i=0;
@@ -170,16 +168,16 @@ public class Game {
     private void printLake(){
         for(int i=0; i<6; i++){
             if(lake.getTile(i) instanceof Water){
-                System.out.println((i+1)+". "+BLUE_BRIGHT+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
+                System.out.println((i+1)+". "+BLUE_BRIGHT+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " ➨ Not aimed":" ➨ Aimed ⌖")+ANSI_RESET);
             }
             else{
-                System.out.println((i+1)+". "+YELLOW_BRIGHT+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
+                System.out.println((i+1)+". "+YELLOW_BRIGHT+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " ➨ Not aimed":" ➨ Aimed ⌖")+ANSI_RESET);
             }
         }
     }
     private void printPlayersCards(){
         System.out.println("----------------------------------");
-        System.out.println("PLAYER: "+ players[currentPlayer].getName());
+        System.out.println("PLAYER \uD83D\uDC64 : "+ players[currentPlayer].getName());
         System.out.println("PLAYER LIVES: "+ players[currentPlayer].getLives());
         System.out.println("------------Your Cards------------");
         for(int i=0; i<3; i++){

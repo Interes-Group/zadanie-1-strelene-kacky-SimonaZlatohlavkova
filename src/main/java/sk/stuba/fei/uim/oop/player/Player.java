@@ -1,10 +1,6 @@
 package sk.stuba.fei.uim.oop.player;
-
-
-
 import sk.stuba.fei.uim.oop.decks.Cards;
 import sk.stuba.fei.uim.oop.decks.DeckOfActionCards;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +52,4 @@ public class Player {
     public boolean isActive(){
         return active;
     }
-
-
-
 }

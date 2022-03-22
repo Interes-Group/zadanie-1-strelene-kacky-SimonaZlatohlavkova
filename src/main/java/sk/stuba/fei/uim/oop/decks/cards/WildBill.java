@@ -1,11 +1,8 @@
 package sk.stuba.fei.uim.oop.decks.cards;
-
 import sk.stuba.fei.uim.oop.decks.Cards;
 import sk.stuba.fei.uim.oop.decks.DeckOfLake;
 import sk.stuba.fei.uim.oop.player.Player;
-
 import java.util.Objects;
-
 import static sk.stuba.fei.uim.oop.game.Colors.*;
 
 public class WildBill extends Cards {
