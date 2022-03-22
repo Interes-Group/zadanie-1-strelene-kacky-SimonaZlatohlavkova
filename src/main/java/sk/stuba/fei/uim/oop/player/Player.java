@@ -21,15 +21,16 @@ public class Player {
         this.cards=new ArrayList<Cards>();
     }
     public DeckOfActionCards tossAllCards(DeckOfActionCards actionCards){
-        if(!this.cards.isEmpty()){
         actionCards.tossCard(cards.get(2));
         actionCards.tossCard(cards.get(1));
         actionCards.tossCard(cards.get(0));
         this.cards.remove(2);
         this.cards.remove(1);
         this.cards.remove(0);
-        }
         return actionCards;
+    }
+    public List<Cards> getAllCards(){
+        return cards;
     }
     public void setActive(boolean active){
         this.active=active;

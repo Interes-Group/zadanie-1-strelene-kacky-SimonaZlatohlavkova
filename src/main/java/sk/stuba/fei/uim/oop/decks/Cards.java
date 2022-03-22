@@ -10,7 +10,6 @@ public abstract class Cards{
     protected boolean played;
 
     public Cards(String name, int amount,boolean needPosition){
-        this.tossedAmount=0;
         this.amount=amount;
         this.name=name;
         this.needPosition=needPosition;

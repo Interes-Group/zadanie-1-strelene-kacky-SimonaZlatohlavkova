@@ -35,11 +35,9 @@ public class Game {
     }
 
     private void startGame(){
-
         initializePlayersCards();
         while(getNumberOfActive()>1){
             if(!players[currentPlayer].isActive()){
-                actionCards=players[currentPlayer].tossAllCards(actionCards);
                 currentPlayer++;
                 if(currentPlayer>=players.length){currentPlayer=0;}
                 continue;
@@ -57,7 +55,6 @@ public class Game {
             }
             else{
                 playCard();
-                takeCard(currentPlayer);
             }
             currentPlayer++;
             if(currentPlayer>=players.length){currentPlayer=0;}
@@ -65,9 +62,6 @@ public class Game {
         System.out.println(WHITE_BACKGROUND_BRIGHT+BLACK_BOLD+"------------End of game-----------"+ANSI_RESET);
         System.out.println(ANSI_GREEN+"Winner is: "+ getWinner().getName()+ANSI_RESET);
     }
-
-
-
 
     private void takeCard(int number){
         players[number].takeCard(actionCards.drawCard());
@@ -96,22 +90,31 @@ public class Game {
               break;
             }
         }
-        tossCard(cardNumber);
-    }
-    private boolean canPlaySomeCard(){
-        if(Objects.equals(players[currentPlayer].getCard(0).getName(), "Shoot") && lake.getAllAimed()==0){
-            if(Objects.equals(players[currentPlayer].getCard(1).getName(), "Shoot")){
-                if(Objects.equals(players[currentPlayer].getCard(2).getName(), "Shoot")){
-                 return false;
+        if(players[currentPlayer].getCard(cardNumber) instanceof Shoot || players[currentPlayer].getCard(cardNumber) instanceof WildBill ){
+            for( int i =0; i<players.length; i++){
+                if(!players[i].isActive() && !players[i].getAllCards().isEmpty()){
+                    actionCards=players[i].tossAllCards(actionCards);
                 }
             }
         }
-        if(Objects.equals(players[currentPlayer].getCard(0).getName(), "Aim") && lake.getAllAimed()==6){
-            if(Objects.equals(players[currentPlayer].getCard(1).getName(), "Aim")){
-                if(Objects.equals(players[currentPlayer].getCard(2).getName(), "Aim")){
-                    return false;
-                }
-            }
+        if(players[currentPlayer].isActive()){
+            tossCard(cardNumber);
+            takeCard(currentPlayer);
+        }
+
+    }
+    private boolean canPlaySomeCard(){
+        List<String>list=new ArrayList<>(3);
+        for(int i=0; i<3; i++){
+            list.add(i,players[currentPlayer].getCard(i).getName());
+        }
+        int shoot= Collections.frequency(list, "Shoot");
+        int aim= Collections.frequency(list,"Aim");
+        if(shoot==3 && lake.getAllAimed()==0){
+            return false;
+        }
+        if(aim==3 && lake.getAllAimed()==6){
+            return false;
         }
         return true;
     }
@@ -166,7 +169,7 @@ public class Game {
 
     private void printLake(){
         for(int i=0; i<6; i++){
-            if(lake.getTile(i).getOwner()==null){
+            if(lake.getTile(i) instanceof Water){
                 System.out.println((i+1)+". "+BLUE_BRIGHT+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed")+ANSI_RESET);
             }
             else{
