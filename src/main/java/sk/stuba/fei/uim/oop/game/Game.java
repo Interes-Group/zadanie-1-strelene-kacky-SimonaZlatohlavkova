@@ -1,5 +1,4 @@
 package sk.stuba.fei.uim.oop.game;
-
 import sk.stuba.fei.uim.oop.decks.*;
 import sk.stuba.fei.uim.oop.decks.cards.*;
 import sk.stuba.fei.uim.oop.player.Player;
@@ -7,9 +6,7 @@ import sk.stuba.fei.uim.oop.tile.*;
 import sk.stuba.fei.uim.oop.utility.KeyboardInput;
 import java.util.List;
 import java.util.*;
-
 import static sk.stuba.fei.uim.oop.game.Colors.*;
-
 
 public class Game {
     private Player[] players;
@@ -22,6 +19,9 @@ public class Game {
         int numberPlayers;
         do {
             numberPlayers = KeyboardInput.readInt("Input number of players (2-6)");
+            if(numberPlayers>6||numberPlayers<2){
+                System.out.println("You entered wrong number of players.");
+            }
         }while(numberPlayers>6||numberPlayers<2);
         this.players=new Player[numberPlayers];
         for (int i=0; i<numberPlayers; i++){
@@ -32,7 +32,6 @@ public class Game {
         initializeActionCards();
         startGame();
     }
-
     private void startGame(){
         initializePlayersCards();
         while(getNumberOfActive()>1){
@@ -61,7 +60,6 @@ public class Game {
         System.out.println(WHITE_BACKGROUND_BRIGHT+BLACK_BOLD+"------------End of game-----------"+ANSI_RESET);
         System.out.println(ANSI_GREEN+"Winner is: "+ getWinner().getName()+ANSI_RESET);
     }
-
     private void takeCard(int number){
         players[number].takeCard(actionCards.drawCard());
     }
@@ -69,7 +67,6 @@ public class Game {
         actionCards.tossCard(players[currentPlayer].getCard(position));
         players[currentPlayer].tossCard(position);
     }
-
     public void playCard(){
         int cardNumber;
         int positionNumber;
@@ -117,9 +114,8 @@ public class Game {
         }
         return true;
     }
-
     private void initializeLake() {
-        List<Tile> lakeCards=new ArrayList<Tile>();
+        List<Tile> lakeCards=new ArrayList<>();
         for (int i = 0; i < players.length; i++) {
             for (int j = 0; j < 5; j++) {
                 lakeCards.add(new Duck(players[i]));
@@ -164,20 +160,19 @@ public class Game {
        }
        return active;
     }
-
     private void printLake(){
         for(int i=0; i<6; i++){
             if(lake.getTile(i) instanceof Water){
-                System.out.println((i+1)+". "+BLUE_BRIGHT+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " ➨ Not aimed":" ➨ Aimed ⌖")+ANSI_RESET);
+                System.out.println((i+1)+". "+BLUE_BRIGHT+ lake.getTile(i).getName()+ (!lake.getAimedList(i)? " -> Not aimed":" -> Aimed ")+ANSI_RESET);
             }
             else{
-                System.out.println((i+1)+". "+YELLOW_BRIGHT+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " ➨ Not aimed":" ➨ Aimed ⌖")+ANSI_RESET);
+                System.out.println((i+1)+". "+YELLOW_BRIGHT+ lake.getTile(i).getName()+ " "+  lake.getTile(i).getOwner().getName()+(!lake.getAimedList(i)? " -> Not aimed":" -> Aimed ")+ANSI_RESET);
             }
         }
     }
     private void printPlayersCards(){
         System.out.println("----------------------------------");
-        System.out.println("PLAYER \uD83D\uDC64 : "+ players[currentPlayer].getName());
+        System.out.println("PLAYER : "+ players[currentPlayer].getName());
         System.out.println("PLAYER LIVES: "+ players[currentPlayer].getLives());
         System.out.println("------------Your Cards------------");
         for(int i=0; i<3; i++){

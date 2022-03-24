@@ -2,12 +2,11 @@ package sk.stuba.fei.uim.oop.decks;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
 
 public class DeckOfActionCards {
     private  List<Cards> actionCards;
     private List<Cards> usedCards;
-    private Random random;
 
     public DeckOfActionCards(List<Cards>actionCardsDeck){
         this.actionCards=new ArrayList<>();
@@ -18,7 +17,6 @@ public class DeckOfActionCards {
         }
         Collections.shuffle(this.actionCards);
         this.usedCards=new ArrayList<>();
-        this.random = new Random();
     }
     public void tossCard(Cards card){
         this.usedCards.add(card);

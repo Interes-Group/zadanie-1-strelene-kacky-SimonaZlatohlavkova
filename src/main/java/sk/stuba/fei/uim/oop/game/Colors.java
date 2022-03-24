@@ -9,5 +9,4 @@ public class Colors {
     public static final String YELLOW_BRIGHT = "\033[0;93m"; // YELLOW
     public static final String BLUE_BRIGHT = "\033[0;94m";   // BLUE
     public static final String RED_BOLD = "\033[1;31m";
-
 }
